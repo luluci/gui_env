@@ -49,7 +49,6 @@ except AttributeError:
 
 class adapt_dad:
 	__hwnd_dict = {}
-	__wnd_proc = None
 
 	def __init__(self, sg_wnd: sg.Window, cb) -> None:
 		# PySimpleGUIのD&Dを有効にするWindowへの参照を格納
@@ -57,7 +56,7 @@ class adapt_dad:
 		# デフォルトプロシージャを初期化
 		self.winproc_org = None
 		# ドラッグアンドドロップを処理できるウィンドウプロシージャを作成
-		adapt_dad.__wnd_proc = WNDPROC(adapt_dad.wnd_proc)
+		self.__wnd_proc = WNDPROC(adapt_dad.wnd_proc)
 		# コールバック登録
 		self.cb = cb
 		#
@@ -72,7 +71,7 @@ class adapt_dad:
 		#ウィンドウプロシージャを取得
 		self.winproc_org = GetWindowLong(hwnd, GWL_WNDPROC)
 		#ウィンドウプロシージャを追加
-		SetWindowLong(hwnd, GWL_WNDPROC, adapt_dad.__wnd_proc)
+		SetWindowLong(hwnd, GWL_WNDPROC, self.__wnd_proc)
 		#hWndとクラスインスタンスをひもづけ
 		adapt_dad.__hwnd_dict[hwnd] = self
 
