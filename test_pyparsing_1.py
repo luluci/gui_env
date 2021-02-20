@@ -1,6 +1,7 @@
 import pyparsing as pp
 
 pp_identifier = (
+	# keywords is not identifier, 
 	pp.NotAny(
 		pp.Keyword("void")
 		| pp.Keyword("unsigned")
